@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-cream text-ink antialiased;
+  background-image: radial-gradient(circle at 15% 15%, #f7e8ee 0%, transparent 40%),
+    radial-gradient(circle at 85% 10%, #ede4f7 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, #dce8df 0%, transparent 35%);
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl font-semibold tracking-wide text-ink;
+}
+
+.card {
+  @apply rounded-3xl bg-white/80 backdrop-blur-sm shadow-soft p-6 md:p-8 border border-white/50;
+}
