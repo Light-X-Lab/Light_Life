@@ -1,17 +1,60 @@
 import Reveal from '@/components/Reveal';
+import { createClient } from '@/lib/supabase/server';
+import { bookConsultation } from './actions/book';
 
-export default function ContactPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function ContactPage() {
+  let user: { email?: string | null } | null = null;
+  let slots: any[] = [];
+  let bookings: any[] = [];
+
+  try {
+    const supabase = await createClient();
+    const authRes = await supabase.auth.getUser();
+    user = authRes.data.user ? { email: authRes.data.user.email } : null;
+
+    const [slotsRes, bookingsRes] = await Promise.all([
+      supabase.from('consultation_slots').select('id,start_time,end_time,is_available').eq('is_available', true).order('start_time', { ascending: true }),
+      supabase.from('consultation_bookings').select('slot_id,status').neq('status', 'cancelled'),
+    ]);
+
+    slots = slotsRes.data || [];
+    bookings = bookingsRes.data || [];
+  } catch {
+    user = null;
+    slots = [];
+    bookings = [];
+  }
+
+  const booked = new Set((bookings || []).map((b: any) => b.slot_id));
+
   return (
-    <section className="card max-w-2xl mx-auto">
-      <Reveal>
-        <h1 className="section-title mb-6">聯絡預約</h1>
-        <form className="space-y-4">
-          <input className="w-full rounded-xl border border-sage px-4 py-3 bg-white/70" placeholder="姓名" />
-          <input className="w-full rounded-xl border border-sage px-4 py-3 bg-white/70" placeholder="Email" type="email" />
-          <textarea className="w-full rounded-xl border border-sage px-4 py-3 bg-white/70 min-h-36" placeholder="想預約的服務與時段" />
-          <button className="px-6 py-3 rounded-full bg-gold/80 hover:bg-gold text-white transition">送出預約</button>
-        </form>
-      </Reveal>
+    <section className="space-y-4">
+      <Reveal><h1 className="section-title">聯絡預約｜身心靈諮詢</h1></Reveal>
+      {(slots || []).map((slot: any, idx: number) => {
+        const isBooked = booked.has(slot.id);
+        return (
+          <Reveal key={slot.id} delay={idx * 0.05}>
+            <div className="card space-y-3">
+              <p>{new Date(slot.start_time).toLocaleString()} ~ {new Date(slot.end_time).toLocaleString()}</p>
+              <p className="text-sm">狀態：{isBooked ? '已預約' : '可預約'}</p>
+              {!isBooked && user && (
+                <form action={bookConsultation} className="grid gap-2 md:grid-cols-2">
+                  <input type="hidden" name="slot_id" value={slot.id} />
+                  <input name="student_name" required placeholder="姓名" className="rounded-xl border border-sage px-4 py-3 bg-white/80" />
+                  <input name="student_email" type="email" required defaultValue={user.email ?? ''} placeholder="Email" className="rounded-xl border border-sage px-4 py-3 bg-white/80" />
+                  <input name="student_phone" placeholder="電話" className="rounded-xl border border-sage px-4 py-3 bg-white/80" />
+                  <input name="topic" placeholder="想諮詢的主題" className="rounded-xl border border-sage px-4 py-3 bg-white/80" />
+                  <button className="rounded-full bg-gold/80 hover:bg-gold text-white px-6 py-3 md:col-span-2">預約此時段</button>
+                </form>
+              )}
+              {!user && !isBooked && <p className="text-sm text-gold">請先登入後才能預約。</p>}
+            </div>
+          </Reveal>
+        );
+      })}
+      {(slots || []).length === 0 && <div className="card">目前尚無可預約時段。</div>}
     </section>
   );
 }

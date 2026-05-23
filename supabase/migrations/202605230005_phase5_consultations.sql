@@ -1,0 +1,3 @@
+-- Phase 5 consultation booking helper migration placeholder
+-- Schema already includes consultation_slots / consultation_bookings in phase1.
+-- Keep this migration file for phase tracking.

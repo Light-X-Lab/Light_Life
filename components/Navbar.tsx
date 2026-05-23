@@ -7,6 +7,7 @@ const links = [
   ['學員見證', '/testimonials'],
   ['靈性文章', '/articles'],
   ['聯絡預約', '/contact'],
+  ['管理登入', '/admin/login'],
 ];
 
 export default function Navbar() {
