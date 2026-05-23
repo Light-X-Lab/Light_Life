@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-cream text-ink antialiased;
+  background-image: radial-gradient(circle at 15% 15%, #f7e8ee 0%, transparent 40%),
+    radial-gradient(circle at 85% 10%, #ede4f7 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, #dce8df 0%, transparent 35%);
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl font-semibold tracking-wide text-ink;
+}
+
+.card {
+  @apply rounded-3xl bg-white/80 backdrop-blur-sm shadow-soft p-6 md:p-8 border border-white/50;
+}
+
+.energy-orb {
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 243, 213, 0.9) 0%, rgba(255, 243, 213, 0) 68%);
+  filter: blur(3px);
+  animation: drift 8s ease-in-out infinite alternate;
+}
+
+.sacred-bg {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 248, 236, 0.88), rgba(245, 239, 255, 0.85));
+}
+
+.golden-glow {
+  background: radial-gradient(circle at 30% 20%, rgba(255, 227, 160, 0.35), transparent 45%),
+    radial-gradient(circle at 80% 65%, rgba(255, 240, 200, 0.3), transparent 48%);
+}
+
+.stage-card {
+  background: linear-gradient(130deg, rgba(228, 204, 155, 0.9), rgba(255, 255, 255, 0.75), rgba(226, 214, 255, 0.8));
+  box-shadow: 0 8px 28px rgba(200, 169, 120, 0.22);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.stage-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 16px 34px rgba(200, 169, 120, 0.32);
+}
+
+.stage-card-inner {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(255, 251, 243, 0.92));
+  overflow: hidden;
+}
+
+.pyramid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.2;
+  background-image:
+    linear-gradient(125deg, transparent 43%, rgba(199, 164, 99, 0.85) 44%, transparent 45%),
+    linear-gradient(55deg, transparent 43%, rgba(199, 164, 99, 0.65) 44%, transparent 45%),
+    linear-gradient(to top, transparent 71%, rgba(245, 229, 183, 0.55) 90%, transparent 100%);
+  background-size: 220px 220px, 220px 220px, 100% 100%;
+  background-position: calc(100% - 24px) calc(100% - 20px), calc(100% - 24px) calc(100% - 20px), center;
+  background-repeat: no-repeat;
+}
+
+@keyframes drift {
+  from {
+    transform: translateY(0px) scale(1);
+    opacity: 0.9;
+  }
+
+  to {
+    transform: translateY(10px) scale(1.07);
+    opacity: 0.65;
+  }
+}
