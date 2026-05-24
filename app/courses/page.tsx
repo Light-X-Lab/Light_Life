@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Reveal from '@/components/Reveal';
 import { createClient } from '@/lib/supabase/server';
 
@@ -79,6 +80,41 @@ export default async function CoursesPage() {
             </Reveal>
           ))}
         </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <Reveal>
+          <article className="card border border-gold/30 bg-gradient-to-br from-blush/60 via-white to-sky/40 space-y-4 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(200,170,90,0.25)]">
+            <p className="text-sm font-medium uppercase tracking-[0.16em] text-gold">Featured Course</p>
+            <h2 className="text-2xl font-medium">金錢靈氣 Money Reiki</h2>
+            <p className="text-sm leading-relaxed text-ink/80">以溫柔穩定的能量練習，整理你與金錢之間的關係，啟動豐盛流動與價值感的內在連結。</p>
+            <Link href="/courses/money-reiki" className="inline-flex w-fit items-center rounded-full bg-gold px-5 py-2 text-sm font-medium text-white transition hover:bg-gold/90">
+              查看金錢靈氣課程
+            </Link>
+          </article>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <article className="card border border-gold/30 bg-gradient-to-br from-mint/55 via-white to-blush/45 space-y-4 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(164,203,181,0.28)]">
+            <p className="text-sm font-medium uppercase tracking-[0.16em] text-gold">Featured Course</p>
+            <h2 className="text-2xl font-medium">生命之花 Flower of Life</h2>
+            <p className="text-sm leading-relaxed text-ink/80">透過生命之花神聖幾何與能量牌陣，學習清理情緒、釋放限制信念、提升覺察與能量流動。</p>
+            <Link href="/courses/flower-of-life" className="inline-flex w-fit items-center rounded-full bg-gold px-5 py-2 text-sm font-medium text-white transition hover:bg-gold/90">
+              查看生命之花課程
+            </Link>
+          </article>
+        </Reveal>
+
+        <Reveal delay={0.16}>
+          <article className="card border border-gold/30 bg-gradient-to-br from-lavender/45 via-cream/80 to-blush/50 space-y-4 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_45px_rgba(176,155,214,0.25)]">
+            <p className="text-sm font-medium uppercase tracking-[0.16em] text-gold">Featured Course</p>
+            <h2 className="text-2xl font-medium">星際馬雅13月亮曆<br />Galactic Maya 13 Moon Calendar</h2>
+            <p className="text-sm leading-relaxed text-ink/80">透過13月亮曆、星系印記、五大神諭與生命波符，校準自然時間頻率，認識自己的天賦、生命方向與靈魂節奏。</p>
+            <Link href="/courses/13-moon-calendar" className="inline-flex w-fit items-center rounded-full bg-gold px-5 py-2 text-sm font-medium text-white transition hover:bg-gold/90">
+              查看13月亮曆課程
+            </Link>
+          </article>
+        </Reveal>
       </div>
 
       <div className="space-y-6">
